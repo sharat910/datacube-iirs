@@ -1,0 +1,4 @@
+[console_scripts]
+datacube = datacube.scripts.cli_app:cli
+datacube-search = datacube.scripts.search_tool:cli
+
