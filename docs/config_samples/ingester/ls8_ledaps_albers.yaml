@@ -3,7 +3,7 @@ output_type: ls8_ledaps_albers
 
 description: Landsat 8 LEDAPS 25 metre, 100km tile, Australian Albers Equal Area projection (EPSG:3577)
 
-location: '/home/sharat910/IIRS/datacube/data/Landsat/tiles'
+location: '/home/rishabh/Documents/LC81460382015043LGN00'
 file_path_template: 'LS8_OLI_LEDAPS/LS8_OLI_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
 global_attributes:
   title: CEOS Data Cube Landsat Surface Reflectance
@@ -34,7 +34,7 @@ ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile bo
 storage:
   driver: NetCDF CF
 
-  crs: EPSG:4326
+  crs: EPSG:3577
   tile_size:
           x: 100000.0
           y: 100000.0
@@ -49,7 +49,7 @@ storage:
 
 measurements:
     - name: blue
-      dtype: float32
+      dtype: int16
       nodata: -9999
       resampling_method: nearest
       src_varname: 'sr_band2'

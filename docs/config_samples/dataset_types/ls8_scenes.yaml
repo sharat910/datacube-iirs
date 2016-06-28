@@ -14,7 +14,7 @@ metadata:
 measurements:    
     - name: 'sr_band2'
       aliases: [band_2, blue]
-      dtype: float32
+      dtype: int16
       nodata: 0
       units: '1'
       spectral_definition:
