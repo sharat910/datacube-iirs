@@ -90,3 +90,6 @@ ENV/
 
 # Temp files
 *~
+
+# Python byte files
+*.pyc

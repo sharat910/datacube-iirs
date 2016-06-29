@@ -4,7 +4,7 @@ output_type: ls8_ledaps_albers
 description: Landsat 8 LEDAPS 25 metre, 100km tile, Indian Uttarakhand Data (EPSG:32644)
 
 location: '/home/rishabh/Documents/LC81460382015043LGN00'
-file_path_template: 'LS8_OLI_LEDAPS/LS8_OLI_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
+file_path_template: 'cache/LS8_OLI_LEDAPS_32644_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
 global_attributes:
   title: CEOS Data Cube Landsat Surface Reflectance
   summary: Landsat 8 Operational Land Imager Analysis Ready data prepared by NASA on behalf of CEOS.
