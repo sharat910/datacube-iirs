@@ -1,7 +1,7 @@
 source_type: ls8_ledaps_scene
 output_type: ls8_ledaps_albers
 
-description: Landsat 8 LEDAPS 25 metre, 100km tile, Australian Albers Equal Area projection (EPSG:3577)
+description: Landsat 8 LEDAPS 25 metre, 100km tile, Indian Uttarakhand Data (EPSG:32644)
 
 location: '/home/rishabh/Documents/LC81460382015043LGN00'
 file_path_template: 'LS8_OLI_LEDAPS/LS8_OLI_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
@@ -26,15 +26,15 @@ global_attributes:
   acknowledgment: Landsat data is provided by the United States Geological Survey (USGS).
 
 ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries.
-  left: -2700000
-  bottom: -5100000
-  right: 2600000
-  top: -1270000
+  left: 160000
+  bottom: 0
+  right: 840000
+  top: 9400000
 
 storage:
   driver: NetCDF CF
 
-  crs: EPSG:3577
+  crs: EPSG:32644
   tile_size:
           x: 100000.0
           y: 100000.0
