@@ -56,7 +56,6 @@ _STANDARD_COORDINATES = {
 
 
 def create_netcdf(netcdf_path):
-    print (netcdf_path)
     nco = Dataset(netcdf_path, 'w')
     nco.date_created = datetime.today().isoformat()
     nco.setncattr('Conventions', 'CF-1.6, ACDD-1.3')
@@ -143,12 +142,23 @@ def _write_sinusoidal_params(crs_var, crs):
     crs_var.grid_mapping_name = 'sinusoidal'
     crs_var.longitude_of_central_meridian = crs.proj.central_meridian
 
+def _write_transverse_mercator_params(crs_var, crs):
+    # http://spatialreference.org/ref/epsg/wgs-84-utm-zone-44n/
+	# http://cfconventions.org/Data/cf-conventions/cf-conventions-1.7/build/cf-conventions.html#appendix-grid-mappings
+	# See Transverse Mercator
+    crs_var.grid_mapping_name = 'transverse_mercator'
+    crs_var.latitude_of_origin = crs.proj.latitude_of_origin
+    crs_var.longitude_of_central_meridian = crs.proj.central_meridian
+    crs_var.scale_factor_at_central_meridian = crs.proj.scale_factor
+    crs_var.false_easting = crs.proj.false_easting
+    crs_var.false_northing = crs.proj.false_northing
+
 
 CRS_PARAM_WRITERS = {
     'albers_conic_equal_area': _write_albers_params,
-    'sinusoidal': _write_sinusoidal_params
+    'sinusoidal': _write_sinusoidal_params,
+    'transverse_mercator': _write_transverse_mercator_params
 }
-
 
 def _create_projected_grid_mapping_variable(nco, crs):
     grid_mapping_name = crs['PROJECTION'].lower()
