@@ -179,11 +179,11 @@ class Datacube(object):
         :param output_crs: The CRS of the returned data.  If no CRS is supplied, the CRS of the stored data is used.
             E.g.::
 
-                output_crs='EPSG:3577'
+                output_crs='EPSG:32644'
 
         :type output_crs: str
         :param resolution: A tuple of the spatial resolution of the returned data.
-            E.g. 25m resolution for **EPSG:3577**::
+            E.g. 25m resolution for **EPSG:32644**::
 
                 resolution=(-25, 25)
 
