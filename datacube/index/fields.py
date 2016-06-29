@@ -88,8 +88,19 @@ def check_doc_unchanged(original, new, doc_name):
     ...
     ValueError: Letters differs from stored (a.b: 1!=2)
     """
+    print (original)
+    print (new)
     changes = get_doc_changes(original, new)
+    print ("CHANGES\n\n\n")
+    f = open("file.txt","w")
+    print (f)
+    print (changes)
 
+    print ("\n\n\n\n")
+    print (f)
+    f.write(str(changes))
+    print ("written")
+    print ("\n\n\n\n")
     if changes:
         raise ValueError(
             '{} differs from stored ({})'.format(

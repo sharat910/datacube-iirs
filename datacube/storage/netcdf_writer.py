@@ -56,6 +56,7 @@ _STANDARD_COORDINATES = {
 
 
 def create_netcdf(netcdf_path):
+    print (netcdf_path)
     nco = Dataset(netcdf_path, 'w')
     nco.date_created = datetime.today().isoformat()
     nco.setncattr('Conventions', 'CF-1.6, ACDD-1.3')

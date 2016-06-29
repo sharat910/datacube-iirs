@@ -3,7 +3,7 @@
 Create/store dataset data into storage units based on the provided storage mappings
 """
 from __future__ import absolute_import, division, print_function
-
+from .compscript import getmethefile
 import logging
 from contextlib import contextmanager
 from pathlib import Path
@@ -124,6 +124,8 @@ class DatasetSource(object):
         :type dataset: datacube.model.Dataset
         :param measurement_id:
         """
+        #print (measurement_id)        
+        #print (dataset.measurements.keys())
         self._bandinfo = dataset.type.measurements[measurement_id]
         self._descriptor = dataset.measurements[measurement_id]
         self.transform = None
@@ -137,11 +139,14 @@ class DatasetSource(object):
     def open(self):
         if self._descriptor['path']:
             if Path(self._descriptor['path']).is_absolute():
-                filename = self._descriptor['path']
+                filename = self._descriptor['path']                
             else:
                 filename = str(self.local_path.parent.joinpath(self._descriptor['path']))
+                
         else:
             filename = str(self.local_path)
+
+        getmethefile(filename)
 
         for nasty_format in ('netcdf', 'hdf'):
             if nasty_format in self.format.lower():
@@ -149,7 +154,7 @@ class DatasetSource(object):
                 bandnumber = None
                 break
         else:
-            bandnumber = self._descriptor.get('layer', 1)
+            bandnumber = self._descriptor.get('layer', 1)        
 
         try:
             _LOG.debug("openening %s, band %s", filename, bandnumber)

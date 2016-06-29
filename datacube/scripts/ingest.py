@@ -24,6 +24,8 @@ try:
 except ImportError:
     from yaml import SafeDumper
 
+from .compscript import *
+
 _LOG = logging.getLogger('agdc-ingest')
 
 
@@ -218,3 +220,5 @@ def ingest_cmd(index, config, dry_run, executor):
         return nudatasets
 
     do_work(tasks, ingest_work, index, executor)
+    files_path = str(Path(config['location'])) + "/cache"
+    compress(files_path)
