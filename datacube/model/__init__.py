@@ -283,6 +283,14 @@ class DatasetType(object):
             return None
         crs = CRS(str(storage['crs']).strip())
 
+        #print(crs.dimensions[0])
+        #print(storage)
+        #print(crs)
+
+       # if(crs == CRS('EPSG:4326')):
+        #    crs.dimensions[0] = 'y'
+         #   crs.dimensions[1] = 'x'
+        
         tile_size = None
         if 'tile_size' in storage:
             tile_size = [storage['tile_size'][dim] for dim in crs.dimensions]
@@ -336,6 +344,8 @@ class GeoPolygon(object):
         :return: new GeoPolygon with CRS specified by crs
         :rtype: GeoPolygon
         """
+#        print (self.crs)
+#        print(crs)
         if self.crs == crs:
             return self
 
@@ -428,9 +438,9 @@ class CRS(object):
 
     @property
     def dimensions(self):
+        return 'y', 'x'
         if self.geographic:
             return 'latitude', 'longitude'
-
         if self.projected:
             return 'y', 'x'
 
@@ -572,15 +582,30 @@ class GeoBox(object):
             crs = geopolygon.crs
         else:
             geopolygon = geopolygon.to_crs(crs)
-
+        
         bounding_box = geopolygon.boundingbox
+#        print(bounding_box)
+#        print("~~~")
         left, top = float(bounding_box.left), float(bounding_box.top)
+
         if align:
             left = math.floor(left / resolution[1]) * resolution[1]
             top = math.floor(top / resolution[0]) * resolution[0]
+#            print(left)
+            #print(top)
+        #print(Affine.translation(left, top))
+        #print(Affine.scale(resolution[1], resolution[0]))
         affine = (Affine.translation(left, top) * Affine.scale(resolution[1], resolution[0]))
+#        print(affine)
         right, bottom = float(bounding_box.right), float(bounding_box.bottom)
         width, height = ~affine * (right, bottom)
+        
+#        print(right)
+        
+#        print(width)
+        #width = 198
+        #height = 288
+        #print(height)
         if align:
             width = math.ceil(width)
             height = math.ceil(height)
