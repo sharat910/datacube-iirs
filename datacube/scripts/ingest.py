@@ -147,6 +147,9 @@ def morph_dataset_type(source_type, config):
 
 def get_variable_params(config):
     chunking = config['storage']['chunking']
+#    print (chunking)
+#    print(config['storage']['dimension_order'])
+#    print("asdasdasffgdfhfdvzxbdfgdfsgds")
     chunking = [chunking[dim] for dim in config['storage']['dimension_order']]
 
     variable_params = {}
@@ -189,8 +192,10 @@ def ingest_cmd(index, config, dry_run, executor):
     source_type = index.datasets.types.get_by_name(config['source_type'])
     if not source_type:
         _LOG.error("Source DatasetType %s does not exist", config['source_type'])
-
+#    print (source_type)
+#    print ("abcdefghijklmnopqrstuvwxyz")
     output_type = morph_dataset_type(source_type, config)
+#    print (output_type)
     _LOG.info('Created DatasetType %s', output_type.name)
     output_type = index.datasets.types.add(output_type)
 
@@ -207,6 +212,7 @@ def ingest_cmd(index, config, dry_run, executor):
 
     def ingest_work(tile_index, sources):
         geobox = GeoBox.from_grid_spec(grid_spec, tile_index)
+#        print ("in ingest.py in ingest_word")
         data = Datacube.product_data(sources, geobox, measurements)
 
         nudata = data.rename(namemap)

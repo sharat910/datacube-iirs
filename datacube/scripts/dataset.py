@@ -48,8 +48,8 @@ def contains(v1, v2):
 
 
 def match_doc(rules, doc):
-    print "\n",rules,"\n"
-    print "\n",doc,"\n"
+    #print "\n",rules,"\n"
+    #print "\n",doc,"\n"
     matched = [rule for rule in rules if contains(doc, rule['metadata'])]
     if not matched:
         raise RuntimeError('No matches found for %s' % doc.get('id', 'unidentified'))
@@ -59,9 +59,9 @@ def match_doc(rules, doc):
 
 
 def check_dataset_consistent(dataset):
-    print dataset.type.measurements.keys()
-    print dataset.measurements.keys()
-    print set(dataset.type.measurements.keys()).issubset(dataset.measurements.keys())
+    #print dataset.type.measurements.keys()
+    #print dataset.measurements.keys()
+    #print set(dataset.type.measurements.keys()).issubset(dataset.measurements.keys())
     return set(dataset.type.measurements.keys()).issubset(dataset.measurements.keys())
 
 
