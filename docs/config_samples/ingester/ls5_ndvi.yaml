@@ -1,9 +1,9 @@
-source_type: ls5_ledaps_scene
-output_type: ls5_ledaps_albers
+source_type: NDVI
+output_type: Output_NDVI
 
-description: Landsat 5 LEDAPS 25 metre, 100km tile, Indian Uttarakhand data UTM 44N (EPSG:32644)
+description: Landsat 5 LEDAPS 25 metre, 100km tile, Indian Uttarakhand Data (EPSG:32644)
 
-location: 'C:\IIRS\Processed\LT51440391990072ISP00'
+location: 'C:\IIRS\Processed\LT51440391990072ISP00\LT51440391990072NDVIISP00'
 file_path_template: 'LS5_TM_LEDAPS/LS5_TM_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
 global_attributes:
   title: CEOS Data Cube Landsat Surface Reflectance
@@ -28,7 +28,7 @@ global_attributes:
 ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries.
   left: 160000
   bottom: 0
-  right: 8400000
+  right: 840000
   top: 9400000
 
 storage:
@@ -48,40 +48,12 @@ storage:
   dimension_order: ['time', 'y', 'x']
 
 measurements:
-    - name: blue
+    - name: NDVI
       dtype: float32
       nodata: -9999
       resampling_method: nearest
-      src_varname: 'sr_band1'
+      src_varname: 'sr_band0'
       zlib: True
       attrs:
-          long_name: "Surface Reflectance 0.45-0.52 microns (Blue)"
-          alias: "band_1"
-    - name: green
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band2'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.52-0.60 microns (Green)"
-          alias: "band_2"
-    - name: red
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band3'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.63-0.69 microns (Red)"
-          alias: "band_3"
-    - name: nir
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band4'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.76-0.90 microns (Near Infrared)"
-          alias: "band_4"
-    
+          long_name: "Vegetation Index"
+          alias: "band_0"
