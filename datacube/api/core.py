@@ -210,15 +210,19 @@ class Datacube(object):
 
     def _get_dataset(self, **indexers):
         query = Query.from_kwargs(self.index, **indexers)
+#        print(query.geopolygon)
         observations = self.product_observations(geopolygon=query.geopolygon, **query.search_terms)
+#        print(observations)
+#        print("endl")
         if not observations:
             return xarray.Dataset()
 
         crs = query.output_crs or get_crs(observations)
         geopolygon = query.geopolygon or get_bounds(observations, crs)
         resolution = query.resolution or get_resolution(observations)
+#        print(geopolygon.boundingbox)
         geobox = GeoBox.from_geopolygon(geopolygon, resolution, crs)
-
+# geobox.shape gives wrong dimensions for EPSG:4326
         group_by = query.group_by
         sources = self.product_sources(observations, group_by.group_by_func, group_by.dimension, group_by.units)
 
@@ -228,7 +232,6 @@ class Datacube(object):
                                        for measurement in query.measurements if measurement in all_measurements)
         else:
             measurements = all_measurements
-
         dataset = self.product_data(sources, geobox, measurements.values())
         return dataset
 
@@ -275,7 +278,11 @@ class Datacube(object):
         .. seealso:: :meth:`product_sources` :meth:`product_data`
         """
         if geopolygon:
+#            print(geopolygon.boundingbox)
+#            print("!!!!!!!!!!!!!!!")
             geo_bb = geopolygon.to_crs(CRS('EPSG:4326')).boundingbox
+
+#            print(geo_bb)
             kwargs['lat'] = Range(geo_bb.bottom, geo_bb.top)
             kwargs['lon'] = Range(geo_bb.left, geo_bb.right)
         # TODO: pull out full datasets lineage?
@@ -370,6 +377,7 @@ class Datacube(object):
 
         .. seealso:: :meth:`product_observations` :meth:`product_sources`
         """
+#        print("in core.py in product_data")
         def data_func(measurement):
             data = numpy.full(sources.shape + geobox.shape, measurement['nodata'], dtype=measurement['dtype'])
             for index, datasets in numpy.ndenumerate(sources.values):

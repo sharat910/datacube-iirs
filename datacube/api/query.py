@@ -65,6 +65,7 @@ class Query(object):
         """
         query = cls()
 
+        #print("inside Query")
         if 'product' in kwargs:
             query.type = kwargs['product']
 
@@ -75,6 +76,8 @@ class Query(object):
         spatial_dims = {dim: v for dim, v in kwargs.items() if dim in SPATIAL_KEYS}
 
         crs = {v for k, v in kwargs.items() if k in CRS_KEYS}
+        #print(kwargs.items())
+        # crs is empty
         if len(crs) == 1:
             spatial_dims['crs'] = crs.pop()
         elif len(crs) > 1:
@@ -95,6 +98,7 @@ class Query(object):
             query.set_nan = kwargs['set_nan']
 
         remaining_keys = set(kwargs.keys()) - set(('product',) + SPATIAL_KEYS + CRS_KEYS + OTHER_KEYS)
+        #print(index)
         if index:
             known_fields = set(index.datasets.get_field_names())
             unknown_keys = remaining_keys - known_fields
@@ -202,6 +206,7 @@ class Query(object):
 def _range_to_geopolygon(**kwargs):
     input_crs = None
     input_coords = {'left': None, 'bottom': None, 'right': None, 'top': None}
+    #print(kwargs.items())
     for key, value in kwargs.items():
         key = key.lower()
         if key in ['latitude', 'lat', 'y']:
@@ -210,7 +215,8 @@ def _range_to_geopolygon(**kwargs):
             input_coords['left'], input_coords['right'] = _value_to_range(value)
         if key in ['crs', 'coordinate_reference_system']:
             input_crs = CRS(value)
-    input_crs = input_crs or CRS('EPSG:4326')
+    input_crs = input_crs or CRS('EPSG:32644')
+    # CHANGED HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 4326
     if any(v is not None for v in input_coords.values()):
         points = [
             (input_coords['left'], input_coords['top']),
