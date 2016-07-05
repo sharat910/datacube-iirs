@@ -19,6 +19,7 @@ import numpy
 import rasterio.warp
 import rasterio.crs
 from rasterio.warp import RESAMPLING
+from affine import Affine
 
 from datacube.utils import clamp, datetime_to_seconds_since_1970
 
@@ -69,10 +70,17 @@ def fuse_sources(sources, destination, dst_transform, dst_projection, dst_nodata
         return abs(affine.c % 1.0) < eps and abs(affine.f % 1.0) < eps
 
     def reproject(source, dest):
+#        print("in storage.py in reproject")
+#        print("dst_tramsform")
+#        print(dst_transform)
+#        print("source.transform")
         with source.open() as src:
+#            print(source.transform)
             array_transform = ~source.transform * dst_transform
+#            print("!!")
             if (source.crs == dst_projection and no_scale(array_transform) and
                     (resampling == RESAMPLING.nearest or no_fractional_translate(array_transform))):
+#                print("here")
                 dydx = (int(round(array_transform.f)), int(round(array_transform.c)))
                 read, write, shape = zip(*map(_calc_offsets, dydx, src.shape, dest.shape))
 
@@ -165,6 +173,11 @@ class DatasetSource(object):
                         bandnumber = self.wheres_my_band(src, self.time)
                     else:
                         bandnumber = 1
+#                print("in storage.py in DatasetSource.open")
+#                print (src.transform)
+#                print (src.affine)
+                a = tuple(src.transform)
+#                print (Affine(a[0], a[1], a[2], a[3], a[4], a[5]))
 
                 self.transform = src.affine
                 self.crs = CRS(str(src.crs_wkt))
