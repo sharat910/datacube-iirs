@@ -93,3 +93,6 @@ ENV/
 
 # Python byte files
 *pyc
+
+# IPythonNotebooks
+*.ipynb
