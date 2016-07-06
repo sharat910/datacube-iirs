@@ -1,9 +1,9 @@
-source_type: ls8_ledaps_scene
-output_type: ls8_ledaps_albers
+source_type: LST2
+output_type: Output_LST2
 
 description: Landsat 8 LEDAPS 25 metre, 100km tile, Indian Uttarakhand Data (EPSG:32644)
 
-location: 'C:\IIRS\LC81460382015100LGN00'
+location: 'C:\IIRS\Processed\LC81450382015100LGN00\LC81450382015100NDVILGN00'
 file_path_template: 'LS8_OLI_LEDAPS/LS8_OLI_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
 global_attributes:
   title: CEOS Data Cube Landsat Surface Reflectance
@@ -36,8 +36,8 @@ storage:
 
   crs: EPSG:32644
   tile_size:
-          x: 10000.0
-          y: 10000.0
+          x: 100000.0
+          y: 100000.0
   resolution:
           x: 25
           y: -25
@@ -48,40 +48,12 @@ storage:
   dimension_order: ['time', 'y', 'x']
 
 measurements:
-    - name: blue
+    - name: LST2
       dtype: float32
       nodata: -9999
       resampling_method: nearest
-      src_varname: 'sr_band2'
+      src_varname: 'sr_band0'
       zlib: True
       attrs:
-          long_name: "Surface Reflectance 0.45-0.51 microns (Blue)"
-          alias: "band_2"
-    - name: green
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band3'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.53-0.59 microns (Green)"
-          alias: "band_4"
-    - name: red
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band4'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.64-0.67 microns (Red)"
-          alias: "band_4"
-    - name: nir
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band5'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.85-0.88 microns (Near Infrared)"
-          alias: "band_5"
-  
+          long_name: "Land Surface Temperature-2"
+          alias: "band_0"

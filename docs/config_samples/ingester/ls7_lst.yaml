@@ -1,5 +1,5 @@
-source_type: ls7_ledaps_scene
-output_type: ls7_ledaps_albers
+source_type: LST
+output_type: Output_LST
 
 description: Landsat 7 LEDAPS 25 metre, 100km tile, Indian Uttarakhand Data (EPSG:32644)
 
@@ -48,40 +48,12 @@ storage:
   dimension_order: ['time', 'y', 'x']
 
 measurements:
-    - name: blue
+    - name: LST
       dtype: float32
       nodata: -9999
       resampling_method: nearest
-      src_varname: 'sr_band1'
+      src_varname: 'sr_band0'
       zlib: True
       attrs:
-          long_name: "Surface Reflectance 0.45-0.52 microns (Blue)"
-          alias: "band_1"
-    - name: green
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band2'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.52-0.60 microns (Green)"
-          alias: "band_2"
-    - name: red
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band3'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.63-0.69 microns (Red)"
-          alias: "band_3"
-    - name: nir
-      dtype: float32
-      nodata: -9999
-      resampling_method: nearest
-      src_varname: 'sr_band4'
-      zlib: True
-      attrs:
-          long_name: "Surface Reflectance 0.76-0.90 microns (Near Infrared)"
-          alias: "band_4"
-    
+          long_name: "Land Surface Temperature"
+          alias: "band_0"
