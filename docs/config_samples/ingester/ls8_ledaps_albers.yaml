@@ -25,7 +25,7 @@ global_attributes:
   naming_authority: gov.usgs
   acknowledgment: Landsat data is provided by the United States Geological Survey (USGS).
 
-ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries.
+ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries. http://spatialreference.org/ref/epsg/wgs-84-utm-zone-44n/
   left: 160000
   bottom: 0
   right: 840000
