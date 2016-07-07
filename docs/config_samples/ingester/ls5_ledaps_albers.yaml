@@ -3,8 +3,8 @@ output_type: ls5_ledaps_albers
 
 description: Landsat 5 LEDAPS 25 metre, 100km tile, Indian Uttarakhand data UTM 44N (EPSG:32644)
 
-location: 'C:\IIRS\Processed\LT51440391990072ISP00'
-file_path_template: 'LS5_TM_LEDAPS/LS5_TM_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
+location: '/home/rishabh/Documents/Data/tiles/'
+file_path_template: 'cache/LS5_TM_LEDAPS_32644_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
 global_attributes:
   title: CEOS Data Cube Landsat Surface Reflectance
   summary: Landsat 5 Thematic Mapper Analysis Ready data prepared by NASA on behalf of CEOS.
@@ -39,8 +39,8 @@ storage:
           x: 100000.0
           y: 100000.0
   resolution:
-          x: 25
-          y: -25
+          x: 30
+          y: -30
   chunking:
       x: 200
       y: 200
@@ -50,7 +50,7 @@ storage:
 measurements:
     - name: blue
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band1'
       zlib: True
@@ -59,7 +59,7 @@ measurements:
           alias: "band_1"
     - name: green
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band2'
       zlib: True
@@ -68,7 +68,7 @@ measurements:
           alias: "band_2"
     - name: red
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band3'
       zlib: True
@@ -77,7 +77,7 @@ measurements:
           alias: "band_3"
     - name: nir
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band4'
       zlib: True
