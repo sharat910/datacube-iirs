@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import logging
 import uuid
+import os
 
 import click
 import numpy
@@ -221,10 +222,15 @@ def ingest_cmd(index, config, dry_run, executor):
                                               start_time=to_datetime(sources.time.values[0]).strftime('%Y%m%d%H%M%S%f'),
                                               end_time=to_datetime(sources.time.values[-1]).strftime('%Y%m%d%H%M%S%f'))
         # TODO: algorithm params
+        print ("Writing product")
         nudatasets = write_product(nudata, sources, output_type,
                                    config['global_attributes'], variable_params, Path(file_path))
         return nudatasets
 
     do_work(tasks, ingest_work, index, executor)
-    files_path = str(Path(config['location'])) + "/cache"
+    temp = str(Path(config['location'])) 
+    files_path = temp + "/cache"
+    if not os.path.isfile(temp+"/archive"):
+        os.system("mkdir "+temp+"/archive")
+    print ("Compressing files")
     compress(files_path)
