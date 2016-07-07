@@ -96,6 +96,7 @@ examples/
 
 # Python byte files
 *pyc
+/examples/notebooks/*
 
 # IPythonNotebooks
 *.ipynb
