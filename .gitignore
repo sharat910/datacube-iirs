@@ -81,8 +81,8 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
-#contrib/
-#examples/
+contrib/
+examples/
 
 
 # Spyder project settings
@@ -98,7 +98,7 @@ ENV/
 *pyc
 
 # IPythonNotebooks
-#*.ipynb
+*.ipynb
 
 # Vim session file
 Session.vim
