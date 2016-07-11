@@ -1,5 +1,5 @@
-source_type: NDVI
-output_type: Output_NDVI
+source_type: LST1
+output_type: Output_LST1
 
 description: Landsat 8 LEDAPS 25 metre, 100km tile, Australian Albers Equal Area projection (EPSG:3577)
 
@@ -48,12 +48,21 @@ storage:
   dimension_order: ['time', 'y', 'x']
 
 measurements:
-    - name: NDVI
+    - name: LST1
       dtype: float32
       nodata: -9999
       resampling_method: nearest
       src_varname: 'sr_band0'
       zlib: True
       attrs:
-          long_name: "Vegetation Index"
+          long_name: "Land Surface Temperature-1"
           alias: "band_0"
+    - name: LST2
+      dtype: float32
+      nodata: -9999
+      resampling_method: nearest
+      src_varname: 'sr_band1'
+      zlib: True
+      attrs:
+          long_name: "Land Surface Temperature-2"
+          alias: "band_1"
