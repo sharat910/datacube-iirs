@@ -1,10 +1,10 @@
 source_type: ls8_ledaps_scene
 output_type: ls8_ledaps_albers
 
-description: Landsat 8 LEDAPS 25 metre, 100km tile, Australian Albers Equal Area projection (EPSG:3577)
+description: Landsat 8 LEDAPS 25 metre, 100km tile, Indian Uttarakhand Data (EPSG:32644)
 
-location: 'C:\IIRS\LC81460382015100LGN00'
-file_path_template: 'LS8_OLI_LEDAPS/LS8_OLI_LEDAPS_3577_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
+location: '/home/rishabh/Data/tiles/'
+file_path_template: 'cache/LS8_OLI_LEDAPS_32644_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
 global_attributes:
   title: CEOS Data Cube Landsat Surface Reflectance
   summary: Landsat 8 Operational Land Imager Analysis Ready data prepared by NASA on behalf of CEOS.
@@ -25,22 +25,22 @@ global_attributes:
   naming_authority: gov.usgs
   acknowledgment: Landsat data is provided by the United States Geological Survey (USGS).
 
-ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries.
-  left: -2700000
-  bottom: -5100000
-  right: 2600000
-  top: -1270000
+ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries. http://spatialreference.org/ref/epsg/wgs-84-utm-zone-44n/
+  left: 160000
+  bottom: 0
+  right: 840000
+  top: 9400000
 
 storage:
   driver: NetCDF CF
 
-  crs: EPSG:3577
+  crs: EPSG:32644
   tile_size:
-          x: 10000.0
-          y: 10000.0
+          x: 100000.0
+          y: 100000.0
   resolution:
-          x: 25
-          y: -25
+          x: 30
+          y: -30
   chunking:
       x: 200
       y: 200
@@ -50,7 +50,7 @@ storage:
 measurements:
     - name: blue
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band2'
       zlib: True
@@ -59,7 +59,7 @@ measurements:
           alias: "band_2"
     - name: green
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band3'
       zlib: True
@@ -68,7 +68,7 @@ measurements:
           alias: "band_4"
     - name: red
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band4'
       zlib: True
@@ -77,7 +77,7 @@ measurements:
           alias: "band_4"
     - name: nir
       dtype: float32
-      nodata: -9999
+      nodata: 0.0
       resampling_method: nearest
       src_varname: 'sr_band5'
       zlib: True

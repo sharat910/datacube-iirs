@@ -55,7 +55,7 @@ metadata:
         code: LANDSAT_7
     instrument:
         name: ETM
-    product_type: NDVI
+    product_type: NDVI_le7
     format:
         name: GeoTiff
 
@@ -76,7 +76,7 @@ metadata:
         code: LANDSAT_7
     instrument:
         name: ETM
-    product_type: LST
+    product_type: LST_le7
     format:
         name: GeoTiff
 

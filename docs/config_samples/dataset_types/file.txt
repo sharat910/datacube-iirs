@@ -1,0 +1,1 @@
+[((u'metadata', u'product_type'), u'NDVI', 'NDVI_le7')]

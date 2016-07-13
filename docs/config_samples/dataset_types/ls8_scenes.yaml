@@ -46,7 +46,7 @@ measurements:
           response: [-3.4e-05, 1.1e-05, 5.0e-05, 0.0001, 0.000239, 0.000314, 0.000495, 0.000719, 0.000986, 0.001445, 0.002107, 0.00316, 0.004744, 0.007059, 0.0109, 0.017346, 0.028332, 0.048191, 0.084363, 0.145365, 0.249733, 0.403526, 0.582623, 0.745037, 0.890315, 0.960215, 0.986833, 0.973133, 0.980606, 0.99612, 1.0, 0.989777, 0.980733, 0.975935, 0.972043, 0.957357, 0.951209, 0.947044, 0.953162, 0.951499, 0.94845, 0.940094, 0.950632, 0.956079, 0.96646, 0.969821, 0.93661, 0.891066, 0.788733, 0.63532, 0.448364, 0.288847, 0.174619, 0.100343, 0.058265, 0.034532, 0.02072, 0.01244, 0.007601, 0.004702, 0.002944, 0.00187, 0.001192, 0.000743, 0.000423, 0.000241, 0.000116, 4.4e-05, -1.3e-05, -5.0e-05, -8.4e-05, -0.0001]
 ---
 
-name: NDVI_ls8
+name: NDVI_lc8
 description: Landsat 8 Level 1 At-sensor Radiance 25 metre
 metadata_type: eo
 
@@ -55,19 +55,19 @@ metadata:
         code: LANDSAT_8
     instrument:
         name: OLI_TIRS
-    product_type: NDVI
+    product_type: NDVI_lc8
     format:
         name: GeoTiff
 
 measurements:
     - name: 'sr_band0'
-      aliases: [band_0, NDVI_ls8]
+      aliases: [band_0, NDVI_lc8]
       dtype: float32
       nodata: 0.0
       units: '1'
 ---
 
-name: LST_ls8
+name: LST_lc8
 description: Landsat 8 Level 1 At-sensor Radiance 25 metre
 metadata_type: eo
 
@@ -76,18 +76,18 @@ metadata:
         code: LANDSAT_8
     instrument:
         name: OLI_TIRS
-    product_type: LST
+    product_type: LST_lc8
     format:
         name: GeoTiff
 
 measurements:
     - name: 'sr_band0'
-      aliases: [band_0, LST1_ls8]
+      aliases: [band_0, LST1_lc8]
       dtype: float32
       nodata: 0.0
       units: '1'
     - name: 'sr_band1'
-      aliases: [band_1, LST2_ls8]
+      aliases: [band_1, LST2_lc8]
       dtype: float32
       nodata: 0.0
       units: '1'
