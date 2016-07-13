@@ -446,7 +446,7 @@ def _rename_spatial_keys(dictionary, dimensions):
 def main():
     agdc_api = API()
     desc = agdc_api.get_descriptor()
-    print(desc)
+    #print(desc)
 
 
 if __name__ == '__main__':

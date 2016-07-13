@@ -2,6 +2,7 @@ from __future__ import absolute_import
 
 import logging
 import uuid
+import os
 
 import click
 import numpy
@@ -23,6 +24,8 @@ try:
     from yaml import CSafeDumper as SafeDumper
 except ImportError:
     from yaml import SafeDumper
+
+from .compscript import *
 
 _LOG = logging.getLogger('agdc-ingest')
 
@@ -145,6 +148,9 @@ def morph_dataset_type(source_type, config):
 
 def get_variable_params(config):
     chunking = config['storage']['chunking']
+#    print (chunking)
+#    print(config['storage']['dimension_order'])
+#    print("asdasdasffgdfhfdvzxbdfgdfsgds")
     chunking = [chunking[dim] for dim in config['storage']['dimension_order']]
 
     variable_params = {}
@@ -187,8 +193,10 @@ def ingest_cmd(index, config, dry_run, executor):
     source_type = index.datasets.types.get_by_name(config['source_type'])
     if not source_type:
         _LOG.error("Source DatasetType %s does not exist", config['source_type'])
-
+#    print (source_type)
+#    print ("abcdefghijklmnopqrstuvwxyz")
     output_type = morph_dataset_type(source_type, config)
+#    print (output_type)
     _LOG.info('Created DatasetType %s', output_type.name)
     output_type = index.datasets.types.add(output_type)
 
@@ -205,6 +213,7 @@ def ingest_cmd(index, config, dry_run, executor):
 
     def ingest_work(tile_index, sources):
         geobox = GeoBox.from_grid_spec(grid_spec, tile_index)
+#        print ("in ingest.py in ingest_word")
         data = Datacube.product_data(sources, geobox, measurements)
 
         nudata = data.rename(namemap)
@@ -213,8 +222,15 @@ def ingest_cmd(index, config, dry_run, executor):
                                               start_time=to_datetime(sources.time.values[0]).strftime('%Y%m%d%H%M%S%f'),
                                               end_time=to_datetime(sources.time.values[-1]).strftime('%Y%m%d%H%M%S%f'))
         # TODO: algorithm params
+        print ("Writing product")
         nudatasets = write_product(nudata, sources, output_type,
                                    config['global_attributes'], variable_params, Path(file_path))
         return nudatasets
 
     do_work(tasks, ingest_work, index, executor)
+    temp = str(Path(config['location'])) 
+    files_path = temp + "/cache"
+    if not os.path.isfile(temp+"/archive"):
+        os.system("mkdir "+temp+"/archive")
+    print ("Compressing files")
+    compress(files_path)

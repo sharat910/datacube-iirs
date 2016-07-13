@@ -3,7 +3,7 @@
 Create/store dataset data into storage units based on the provided storage mappings
 """
 from __future__ import absolute_import, division, print_function
-
+from .compscript import getmethefile
 import logging
 from contextlib import contextmanager
 from pathlib import Path
@@ -19,6 +19,7 @@ import numpy
 import rasterio.warp
 import rasterio.crs
 from rasterio.warp import RESAMPLING
+from affine import Affine
 
 from datacube.utils import clamp, datetime_to_seconds_since_1970
 
@@ -69,10 +70,17 @@ def fuse_sources(sources, destination, dst_transform, dst_projection, dst_nodata
         return abs(affine.c % 1.0) < eps and abs(affine.f % 1.0) < eps
 
     def reproject(source, dest):
+#        print("in storage.py in reproject")
+#        print("dst_tramsform")
+#        print(dst_transform)
+#        print("source.transform")
         with source.open() as src:
+#            print(source.transform)
             array_transform = ~source.transform * dst_transform
+#            print("!!")
             if (source.crs == dst_projection and no_scale(array_transform) and
                     (resampling == RESAMPLING.nearest or no_fractional_translate(array_transform))):
+#                print("here")
                 dydx = (int(round(array_transform.f)), int(round(array_transform.c)))
                 read, write, shape = zip(*map(_calc_offsets, dydx, src.shape, dest.shape))
 
@@ -124,6 +132,8 @@ class DatasetSource(object):
         :type dataset: datacube.model.Dataset
         :param measurement_id:
         """
+        #print (measurement_id)        
+        #print (dataset.measurements.keys())
         self._bandinfo = dataset.type.measurements[measurement_id]
         self._descriptor = dataset.measurements[measurement_id]
         self.transform = None
@@ -137,11 +147,14 @@ class DatasetSource(object):
     def open(self):
         if self._descriptor['path']:
             if Path(self._descriptor['path']).is_absolute():
-                filename = self._descriptor['path']
+                filename = self._descriptor['path']                
             else:
                 filename = str(self.local_path.parent.joinpath(self._descriptor['path']))
+                
         else:
             filename = str(self.local_path)
+
+        getmethefile(filename)
 
         for nasty_format in ('netcdf', 'hdf'):
             if nasty_format in self.format.lower():
@@ -149,7 +162,7 @@ class DatasetSource(object):
                 bandnumber = None
                 break
         else:
-            bandnumber = self._descriptor.get('layer', 1)
+            bandnumber = self._descriptor.get('layer', 1)        
 
         try:
             _LOG.debug("openening %s, band %s", filename, bandnumber)
@@ -160,6 +173,11 @@ class DatasetSource(object):
                         bandnumber = self.wheres_my_band(src, self.time)
                     else:
                         bandnumber = 1
+#                print("in storage.py in DatasetSource.open")
+#                print (src.transform)
+#                print (src.affine)
+                a = tuple(src.transform)
+#                print (Affine(a[0], a[1], a[2], a[3], a[4], a[5]))
 
                 self.transform = src.affine
                 self.crs = CRS(str(src.crs_wkt))
