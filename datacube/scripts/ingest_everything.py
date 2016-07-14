@@ -1,3 +1,5 @@
+# usage "python ingest_everything.py $PWD/"
+# PWD is where the input data is present.
 import subprocess
 import sys
 import glob
