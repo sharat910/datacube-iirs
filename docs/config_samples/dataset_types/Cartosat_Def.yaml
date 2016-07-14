@@ -1,0 +1,19 @@
+name: DEM
+description: Cartosat-1 PAN(2.5m) Stereo Data
+metadata_type: eo
+
+metadata:
+    platform:
+        code: Cartosat-1
+    instrument:
+        name: PAN(2.5m) Stereo Data
+    product_type: DEM
+    format:
+        name: GeoTiff
+
+measurements:
+    - name: 'sr_band0'
+      aliases: [band_0, DEM]
+      dtype: float32
+      nodata: 0.0
+      units: '1'
