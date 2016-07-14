@@ -1,0 +1,59 @@
+source_type: DEM
+output_type: Output_DEM
+
+description: Cartosat
+
+location: '/home/rishabh/Data/tiles/'
+file_path_template: 'cache/CS1_PAN_DEM_32644_{tile_index[0]}_{tile_index[1]}_{start_time}.nc'
+global_attributes:
+  title: CEOS Data Cube Landsat Surface Reflectance
+  summary: Landsat 8 Operational Land Imager Analysis Ready data prepared by NASA on behalf of CEOS.
+  source: Surface reflectance from LEDAPS
+  institution: IIRS
+  instrument: OLI
+  cdm_data_type: Grid
+  keywords: AU/GA,NASA/GSFC/SED/ESD/LANDSAT,REFLECTANCE,ETM+,TM,OLI,EARTH SCIENCE
+  keywords_vocabulary: GCMD
+  platform: LANDSAT-8
+  processing_level: L2
+  product_version: '2.0.0'
+  product_suite: USGS Landsat
+  project: CEOS
+  coverage_content_type: physicalMeasurement
+  references: http://dx.doi.org/10.3334/ORNLDAAC/1146
+  license: https://creativecommons.org/licenses/by/4.0/
+  naming_authority: gov.usgs
+  acknowledgment: Landsat data is provided by the United States Geological Survey (USGS).
+
+ingestion_bounds: # Specified in Storage CRS coordinates. Will expand to tile boundaries.
+  left: 160000
+  bottom: 0
+  right: 8400000
+  top: 9400000
+
+storage:
+  driver: NetCDF CF
+
+  crs: EPSG:32644
+  tile_size:
+          x: 100000.0
+          y: 100000.0
+  resolution:
+          x: 30
+          y: -30
+  chunking:
+      x: 200
+      y: 200
+      time: 1
+  dimension_order: ['time', 'y', 'x']
+
+measurements:
+    - name: DEM
+      dtype: float32
+      nodata: 0.0
+      resampling_method: nearest
+      src_varname: 'sr_band0'
+      zlib: True
+      attrs:
+          long_name: "Digital Elevation Model"
+          alias: "band_0"
